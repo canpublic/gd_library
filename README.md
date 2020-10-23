@@ -5,6 +5,12 @@
   * [Docker](https://docs.docker.com/get-docker/)
   * [docker-compose](https://docs.docker.com/compose/install/)
 
+## Stack
+
+  * Elixir 1.10
+  * Phoenix 1.5
+  * PostgreSQL 12
+
 ## Setup
 
   * `docker-compose build`
