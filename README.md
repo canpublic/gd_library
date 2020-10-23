@@ -11,7 +11,7 @@
   * Phoenix 1.5
   * PostgreSQL 12
 
-## Setup
+## Setup Dev
 
   * `docker-compose build`
   * `docker-compose run web mix deps.get`
@@ -19,10 +19,13 @@
   * `docker-compose run web mix ecto.migrate`
   * `docker-compose run web mix run priv/repo/seeds.exs`
 
-## Run Tests
+## Setup Tests
 
   * `docker-compose run -e MIX_ENV=test web mix ecto.create`
   * `docker-compose run -e MIX_ENV=test web mix ecto.migrate`
+
+## Run Tests
+
   * `docker-compose run -e MIX_ENV=test web mix test`
 
 ## Run Server
