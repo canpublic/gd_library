@@ -78,17 +78,17 @@ defmodule GDLibrary.Checkout do
   defp undo_request_changeset(book_request) do
     book_request
     |> Ecto.Changeset.change()
-    |> validate_not_already_held()
+    |> validate_still_in_inventory()
   end
 
-  defp validate_not_already_held(changeset) do
+  defp validate_still_in_inventory(changeset) do
     case get_field(changeset, :checked_out_at) do
       nil ->
         changeset
 
-      _held_at ->
+      _checked_out_at ->
         changeset
-        |> add_error(:held_book_copy_id, "is already set")
+        |> add_error(:checked_out_at, "is already set")
     end
   end
 end
