@@ -13,11 +13,11 @@ defmodule GDLibraryWeb.BookRequestView do
 
   def render("book_request.json", %{book_request: book_request}) do
     %{
-      id: book_request.requested_book_id,
+      id: book_request.id,
       title: book_request.requested_book.title,
       available: not is_nil(book_request.held_book_copy_id),
       timestamp: NaiveDateTime.to_iso8601(book_request.inserted_at),
-      book_request_id: book_request.id
+      requested_book_id: book_request.requested_book_id
     }
   end
 

@@ -42,28 +42,28 @@ defmodule GDLibraryWeb.BookRequestControllerTest do
 
       [book_request] = Inventory.get_requests_for_book(book.id)
 
-      expected_book_id = book.id
+      expected_id = book_request.id
       expected_available = not is_nil(book_request.held_book_copy_id)
       expected_book_title = book.title
       expected_timestamp = NaiveDateTime.to_iso8601(book_request.inserted_at)
-      expected_book_request_id = book_request.id
+      expected_requested_book_id = book.id
 
       assert %{
-               "id" => ^expected_book_id,
+               "id" => ^expected_id,
                "available" => ^expected_available,
                "title" => ^expected_book_title,
                "timestamp" => ^expected_timestamp,
-               "book_request_id" => ^expected_book_request_id
+               "requested_book_id" => ^expected_requested_book_id
              } = json_response(conn, 201)
 
       conn = get(conn, "/request/#{book_request.id}")
 
       assert %{
-               "id" => ^expected_book_id,
+               "id" => ^expected_id,
                "available" => ^expected_available,
                "title" => ^expected_book_title,
                "timestamp" => ^expected_timestamp,
-               "book_request_id" => ^expected_book_request_id
+               "requested_book_id" => ^expected_requested_book_id
              } = json_response(conn, 200)
     end
 

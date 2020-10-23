@@ -33,12 +33,12 @@
 
 ### Assumptions
 
-  * because the spec used `GET /request`, `POST /request`, etc (instead of `/book` or `/books` or `/books/:id/request`), the resource we're interacting with via these endpoints in this API is a "book request" (or a "hold") not a "book" itself. however, this means returning an `"id"` value of "ID of the book" is odd! i genuinely wasn't sure which compromise was better here, so i satisfied the spec and returned the `book_requests.requested_book_id` under `"id"` while augmenting with `book_requests.id` under `"book_request_id"`.
+  * because the spec used `GET /request`, `POST /request`, etc (instead of `/book` or `/books` or `/books/:id/request`), the resource we're interacting with via these endpoints in this API is a "book request" (or a "hold") not a "book" itself. however, this means returning an `"id"` value of "ID of the book" is odd! i genuinely wasn't sure which compromise was better here, so i made a change and returned the `book_requests.id` under `"id"` while augmenting with `book_requests.requested_book_id` under `"requested_book_id"`.
   * multiple book copies per book title
   * "available" means "book copy successfully held for the user, ready for pickup"
-  * requesting a book merely is requesting a hold, you haven't yet received the book
+  * requesting a book merely is requesting a hold (and not guaranteeing one!). you haven't yet received the book.
   * deleting a request implies releasing a hold (if applicable), not returning a book (or anything else). in fact, you can't "undo" (delete) a request if you already have the book
-  * book title must be exact (if there are too many or too few results, you get an error)
+  * book title must be exact (if there are > 1 or 0 results, you get an error)
   * the same email can be used multiple times but only once per book
   * one library location :)
 
