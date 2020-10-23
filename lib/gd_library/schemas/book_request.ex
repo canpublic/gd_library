@@ -3,7 +3,7 @@ defmodule GDLibrary.Schemas.BookRequest do
   import Ecto.Changeset
 
   schema "book_requests" do
-    add(:email, :string)
+    field(:email, :string)
     belongs_to :requested_book, GDLibrary.Schemas.Book
     belongs_to :held_book_copy, GDLibrary.Schemas.BookCopy
 
