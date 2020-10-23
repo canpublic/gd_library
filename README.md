@@ -42,8 +42,9 @@
 
 ### Assumptions
 
+  * part of the test is the act of making assumptions! the spec was presumably intentionally vague, and i intentionally didn't ask any clarifying questions. just made the folowing assumptions and forged ahead.
   * because the spec used `GET /request`, `POST /request`, etc (instead of `/book` or `/books` or `/books/:id/request`), the resource we're interacting with via these endpoints in this API is a "book request" (or a "hold") not a "book" itself. however, this means returning an `"id"` value of "ID of the book" is odd! i genuinely wasn't sure which compromise was better here, so i made a change and returned `book_requests.id` under `"id"` while augmenting with `book_requests.requested_book_id` under `"requested_book_id"`.
-  * multiple book copies per book title
+  * multiple book copies per book title.
   * "available" means "book copy successfully held for the user, ready for pickup"
   * requesting a book merely is requesting a hold (and not guaranteeing one!). you haven't yet received the book.
   * deleting a request implies releasing a hold (if applicable), not returning a book (or anything else). in fact, you can't "undo" (delete) a request if you already have the book
