@@ -22,11 +22,11 @@ defmodule GDLibraryWeb.BookRequestControllerTest do
             title: book.title
           })
 
-        assert true == json_response(success_conn, 201)["available"]
+        assert true == json_response(success_conn, 201)["data"]["available"]
       end)
 
       conn = get(conn, Routes.book_request_path(conn, :index))
-      assert 5 == length(json_response(conn, 200))
+      assert 5 == length(json_response(conn, 200)["data"])
     end
   end
 
@@ -54,7 +54,7 @@ defmodule GDLibraryWeb.BookRequestControllerTest do
                "title" => ^expected_book_title,
                "timestamp" => ^expected_timestamp,
                "requested_book_id" => ^expected_requested_book_id
-             } = json_response(conn, 201)
+             } = json_response(conn, 201)["data"]
 
       conn = get(conn, "/request/#{book_request.id}")
 
@@ -64,7 +64,7 @@ defmodule GDLibraryWeb.BookRequestControllerTest do
                "title" => ^expected_book_title,
                "timestamp" => ^expected_timestamp,
                "requested_book_id" => ^expected_requested_book_id
-             } = json_response(conn, 200)
+             } = json_response(conn, 200)["data"]
     end
 
     test "renders errors when user tries to request same book twice", %{
@@ -100,7 +100,7 @@ defmodule GDLibraryWeb.BookRequestControllerTest do
             title: book.title
           })
 
-        assert true == json_response(success_conn, 201)["available"]
+        assert true == json_response(success_conn, 201)["data"]["available"]
       end)
 
       bad_conn =
@@ -109,12 +109,7 @@ defmodule GDLibraryWeb.BookRequestControllerTest do
           title: book.title
         })
 
-      assert false == json_response(bad_conn, 201)["available"]
-    end
-
-    test "renders errors when title isn't specific enough", %{conn: conn} do
-      conn = post(conn, "/request", %{email: "toovague@test.com", title: "Cash Transfers"})
-      assert json_response(conn, 422)["errors"] != %{}
+      assert false == json_response(bad_conn, 201)["data"]["available"]
     end
 
     test "renders errors when title doesn't exist at all", %{conn: conn} do

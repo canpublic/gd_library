@@ -4,11 +4,11 @@ defmodule GDLibraryWeb.BookRequestView do
   alias GDLibrary.Repo
 
   def render("index.json", %{book_requests: book_requests}) do
-    render_many(preload(book_requests), BookRequestView, "book_request.json")
+    %{data: render_many(preload(book_requests), BookRequestView, "book_request.json")}
   end
 
   def render("show.json", %{book_request: book_request}) do
-    render_one(preload(book_request), BookRequestView, "book_request.json")
+    %{data: render_one(preload(book_request), BookRequestView, "book_request.json")}
   end
 
   def render("book_request.json", %{book_request: book_request}) do
