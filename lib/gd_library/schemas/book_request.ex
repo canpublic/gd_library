@@ -2,6 +2,8 @@ defmodule GDLibrary.Schemas.BookRequest do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @valid_email ~r/^[\w.!#$%&’*+\-\/=?\^`{|}~]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$/i
+
   schema "book_requests" do
     field(:email, :string)
     belongs_to :requested_book, GDLibrary.Schemas.Book
@@ -29,5 +31,10 @@ defmodule GDLibrary.Schemas.BookRequest do
       :returned_at
     ])
     |> validate_required([:email, :requested_book_id])
+    |> validate_format(:email, @valid_email)
+    |> unique_constraint([:email, :requested_book_id],
+      name: :book_requests_email_requested_book_id_index,
+      message: "can't be used to request the same book twice"
+    )
   end
 end

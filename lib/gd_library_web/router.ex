@@ -5,7 +5,12 @@ defmodule GDLibraryWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", GDLibraryWeb do
+  scope "/", GDLibraryWeb do
     pipe_through :api
+
+    get("/request", BookRequestController, :index)
+    get("/request/:id", BookRequestController, :show)
+    post("/request", BookRequestController, :create)
+    delete("/request/:id", BookRequestController, :delete)
   end
 end
