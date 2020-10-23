@@ -16,7 +16,8 @@ defmodule GDLibraryWeb.BookRequestView do
       id: book_request.requested_book_id,
       title: book_request.requested_book.title,
       available: not is_nil(book_request.held_book_copy_id),
-      timestamp: NaiveDateTime.to_iso8601(book_request.inserted_at)
+      timestamp: NaiveDateTime.to_iso8601(book_request.inserted_at),
+      book_request_id: book_request.id
     }
   end
 
