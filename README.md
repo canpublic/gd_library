@@ -22,10 +22,11 @@
 ## Run Server
 
   * `docker-compose up`
+  * access at `http://localhost:4000`
 
 ## Tips
 
-  * access and explore psql database via host by using details in `.env` but port `5433`
+  * access and explore psql database via host by using details in `.env` but port `5433`. (this is how you'll know what book titles are requestable!)
   * relevant tests are at `test/gd_library_web/controllers/book_request_controller_test.exs`
 
 ## Notes
@@ -43,7 +44,8 @@
 
 ### Tradeoffs
 
-  * didn't bother with nice full text searching! book title must be exact. just no time.
+  * controller tests only. no time!
+  * didn't bother with nice full text searching. book title must be exact.
   * eschewing authors first_name and last_name for full_name allows us to accurately represent all international authors' names, but we won't easily be able to "sort by last name" as you might expect in a US context
   * duplication of `book_requests.requested_book_id` and `book_requests.held_book_copy_id` leaves us currently open to the possibility of a copy of the "wrong" book being doled out, but i'm not sure if this matters to the user or the business inherently.
   * "email" is enough for now. we won't be bothering with full users or accounts tables.
